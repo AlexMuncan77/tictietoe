@@ -11,6 +11,5 @@ void positionToRowCol(int position, int* row, int* col); // Converteste pozitia 
 int isValidMove(int position); // Verifica daca o mutare este valida
 int checkWin(char player); // Verifica daca un jucator a castigat
 int checkDraw();           // Verifica daca e remiza
-void aiMove();             // AI face o mutare
 
 #endif

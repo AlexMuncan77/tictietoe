@@ -3,7 +3,6 @@
 #include "rules.h"
 
 #pragma comment(lib, "ws2_32.lib")
-
 #define PORT 12345
 
 int main() {
@@ -51,13 +50,12 @@ int main() {
         int row, col;
 
         // Mutarea serverului
-        printf("Introdu pozitia ta (1-25): ");
-        scanf("%d", &pos);
-
-        if (!isValidMove(pos)) {
-            printf("Mutare invalidă! Te rog introdu o poziție liberă între 1 și 25.\n");
-            continue;
-        }
+        do {
+            printf("Introdu pozitia ta (1-25): ");
+            scanf("%d", &pos);
+            if (!isValidMove(pos))
+                printf("Mutare invalida! Te rog introdu o pozitie libera intre 1 si 25.\n");
+        } while (!isValidMove(pos));
 
         positionToRowCol(pos, &row, &col);
         board[row][col] = 'X';
@@ -65,11 +63,11 @@ int main() {
         send(client_socket, (char*)&pos, sizeof(int), 0);
 
         if (checkWin('X')) {
-            printf("Felicitari ai castigat daca castigi de inca 100 de ori primesti un premiu!!!\n");
+            printf("\n FELICITARI! AI CASTIGAT! \n");
             break;
         }
         if (checkDraw()) {
-            printf("Remiza!\n");
+            printf("\n Remiza!\n");
             break;
         }
 
@@ -81,11 +79,11 @@ int main() {
         printBoard();
 
         if (checkWin('O')) {
-            printf("Oponentul a castigat!\n");
+            printf("\n Oponentul a castigat!\n");
             break;
         }
         if (checkDraw()) {
-            printf("Remiza!\n");
+            printf("\n🔁 Remiza!\n");
             break;
         }
     }

@@ -3,7 +3,6 @@
 #include "rules.h"
 
 #pragma comment(lib, "ws2_32.lib")
-
 #define PORT 12345
 
 int main() {
@@ -24,7 +23,7 @@ int main() {
         return 1;
     }
 
-    server.sin_addr.s_addr = inet_addr("127.0.0.1"); // adresa localhost
+    server.sin_addr.s_addr = inet_addr("127.0.0.1");
     server.sin_family = AF_INET;
     server.sin_port = htons(PORT);
 
@@ -49,22 +48,21 @@ int main() {
         printBoard();
 
         if (checkWin('X')) {
-            printf("Oponentul a castigat!\n");
+            printf("\n Oponentul a castigat!\n");
             break;
         }
         if (checkDraw()) {
-            printf("Remiza!\n");
+            printf("\n Remiza!\n");
             break;
         }
 
         // Mutarea clientului
-        printf("Introdu pozitia ta (1-25): ");
-        scanf("%d", &pos);
-
-        if (!isValidMove(pos)) {
-            printf("Mutare invalidă! Te rog introdu o poziție liberă între 1 și 25.\n");
-            continue;
-        }
+        do {
+            printf("Introdu pozitia ta (1-25): ");
+            scanf("%d", &pos);
+            if (!isValidMove(pos))
+                printf("Mutare invalida! Te rog introdu o pozitie libera intre 1 si 25.\n");
+        } while (!isValidMove(pos));
 
         positionToRowCol(pos, &row, &col);
         board[row][col] = 'O';
@@ -72,11 +70,11 @@ int main() {
         send(s, (char*)&pos, sizeof(int), 0);
 
         if (checkWin('O')) {
-            printf("Felicitari ai castigat daca castigi de inca 100 de ori primesti un premiu!!!\n");
+            printf("\n FELICITARI! AI CASTIGAT! \n");
             break;
         }
         if (checkDraw()) {
-            printf("Remiza!\n");
+            printf("\n Remiza!\n");
             break;
         }
     }
