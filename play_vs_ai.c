@@ -36,6 +36,7 @@ printf(" 21| 22| 23| 24| 25\n\n");
 
         if (checkWin(player)) {
             printf("Ai castigat!\n");
+            printf("FELICITARII DACA CASTIGI DE 100 DE ORI PRIMESTI O MASINA!!!!!!\n");
             break;
         }
 
